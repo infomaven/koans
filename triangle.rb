@@ -9,12 +9,17 @@
 #  :scalene      if no sides are equal
 
 def triangle(a, b, c)
+  # rules:1) all sides must be > 0   2) total of any 2 sides must be > the 3rd
+  if a <= 0 or b <= 0 or c <= 0 
+    raise TriangleError, "no sides should be less than 0"
+  end
   if a == b and a == c and b == c
     return :equilateral
-  elsif a != b and a != c and b != c
+  elsif (a !=  b and b != c and a != c )  
     return :scalene
   else
     return :isosceles
+
   end
 end
 
