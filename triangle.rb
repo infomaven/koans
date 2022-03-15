@@ -15,10 +15,11 @@ def triangle(a, b, c)
   end
   if a == b and a == c and b == c
     return :equilateral
-  elsif (a !=  b and b != c and a != c )  
+    
+ elsif (a !=  b and b != c and a != c )  
     return :scalene
-  else
-    return :isosceles
+  elsif (a = b and a != c) or (a = c and b!= c) or (b = c and a != b))
+      return :isosceles
 
   end
 end
