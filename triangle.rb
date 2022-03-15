@@ -9,21 +9,22 @@
 #  :scalene      if no sides are equal
 
 def triangle(a, b, c)
-  # rules:1) all sides must be > 0   2) total of any 2 sides must be > the 3rd
-  if a <= 0 or b <= 0 or c <= 0 
-    raise TriangleError, "no sides should be less than 0"
+  if (a ==0 or  b == 0 or  c ==  0) 
+    raise TriangleError, "! All sides must have length > 0"
   end
-  if a == b and a == c and b == c
+  if (a+b <= c) or (a+c <= b) or (b+c <= a)
+    raise TriangleError, "!Total of any 2 sides must be > the third side"
+  end
+  if (a == b and a == c and b ==c)
     return :equilateral
-    
  elsif (a !=  b and b != c and a != c )  
     return :scalene
-  elsif (a = b and a != c) or (a = c and b!= c) or (b = c and a != b))
-      return :isosceles
-
+  elsif (a==b && a!=c) || (a==c && a!=b) || (b==c && b!=a)
+    return :isosceles
   end
 end
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
+
 end
