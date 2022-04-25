@@ -35,27 +35,32 @@ def score(dice)
     if (dice.length == 0)
       return 0
     end
-    if dice.length == 1 and dice[0] == 5 
-          return 50
-    end
-    if dice.length == 1 and dice[0] == 1
-      return 100
-    end
-    if dice.length > 1
+    if dice.length >= 1
       sum  = 0
       for x in dice
-	if (x == 1 or x == 5)
-	  temp = [x]
-	  sum = sum + score(temp)
-	end
-	if (x == 2 or x == 3 or x == 4 or x == 6)
+      	if dice.include? 5
+	  sum = sum + 50
+	  if dice.length == 1
+       	    return 50
+	 end
+      	end
+      	if dice.include? 1
+	  sum = sum + 100
+          if dice.length ==1
+	    return 100
+	 end
+        end
+	if dice.include?2 or dice.include?3 or dice.include?4 or dice.include?6
 	  sum = sum + 0
-       end
-      return sum
-    end  #length > 1
+	  if dice.length == 1
+	    return 0
+	  end
+      end
+    end
+   return sum
   end #array
   return nil
-end
+  end
 end
 
 class AboutScoringProject < Neo::Koan
