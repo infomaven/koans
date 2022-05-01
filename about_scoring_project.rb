@@ -31,41 +31,42 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
-  if (dice.kind_of?(Array)) 
-    if (dice.length == 0)
-      return 0
-    end
-    sum = 0
-    if dice.length == 1 and dice[0] == 5
-	return 50
-    end
-    if dice.length ==1 and dice[0]  == 1
-    	return 100
-    end
-# todo: add logic for 3-of-a-kind (all 1s; all 5s)
-    if dice.length == 3 and (dice[0] == 1 and dice[1] == 1 and dice[2] == 1)
-    	return 1000
-    end
-    if dice.length == 3 and (dice[0] == dice[1] and dice[1] == dice[2] and dice[0] == dice[2])
-	return 100 * dice[0]
-    end
+	sum = 0
+  special_sum = 0
+  triplets = []
 
-    if dice.length > 3
-      for x in dice
-      	if x == 5
-	  sum = sum + 50
-	end
-      	if x == 1
-	  sum = sum + 100
-	 end
-        end
-	if dice.include?2 or dice.include?3 or dice.include?4 or dice.include?6
-	  sum = sum + 0
-	end
-      end  # loop
-    end   #outer if 
-   return sum
- end #array
+  if dice.kind_of? Array
+    if dice.empty?
+      return 0 
+    end 
+
+		dice.sort
+		h = Hash.new(0)
+		dice.each{ |e| h[e] += 1 }
+
+		for x in h.keys
+			if h[x] == 3
+        triplets.push(x)
+				if x == 1
+					specical_sum = special_sum + 1000
+				else 
+					specical_sum = specical_sum + (100*x)
+				end
+			end
+    end
+    
+    for x in (dice - triplets)
+			if x == 1
+				sum = sum + 100
+      elsif x == 5
+				sum = sum + 50
+			end
+		end
+ 	end 
+  return sum + special_sum
+end
+
+
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
