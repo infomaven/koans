@@ -29,16 +29,22 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
-def score(dice)
-  # You need to write this method
-  if (dice.is_a(List)) and (dice.length == 0)
-      return 0
-  end
+dice = []
 
-end
+#def score(dice)
+  # You need to write this method
+  #if (dice.is_a(List)) and (dice.length == 0)
+#  if dice.length == 0 
+#    return 0
+#  else
+#     return dice.length 
+#  end
+#end
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
+    assert_true dice.class == Array
+    assert_true dice.length == 0 
     assert_equal 0, score([])
   end
 
