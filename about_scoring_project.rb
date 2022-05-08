@@ -29,22 +29,45 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
-dice = []
-
-#def score(dice)
+def score(dice)
   # You need to write this method
-  #if (dice.is_a(List)) and (dice.length == 0)
-#  if dice.length == 0 
-#    return 0
-#  else
-#     return dice.length 
-#  end
-#end
+	sum = 0
+  special_sum = 0
+  triplets = []
+
+  if dice.kind_of? Array
+    if dice.empty? or dice.length == 0
+      return sum 
+    end 
+
+		dice.sort
+		h = Hash.new(0)
+		dice.each{ |e| h[e] += 1 }
+
+		for x in h.keys
+			if h[x] == 3
+        puts "triple digits found!"
+        triplets.push(x)
+				if x == 1
+					special_sum = special_sum + 1000
+				else 
+					special_sum = special_sum + (100*x)
+				end
+			end
+    end
+    for x in (dice - triplets)
+			if x == 1
+				sum = sum + 100
+      elsif x == 5
+				sum = sum + 50
+			end
+		end
+ 	end 
+  return sum + special_sum
+end
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
-    assert_true dice.class == Array
-    assert_true dice.length == 0 
     assert_equal 0, score([])
   end
 
