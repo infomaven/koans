@@ -33,36 +33,43 @@ def score(dice)
   # You need to write this method
 	sum = 0
   special_sum = 0
-  triplets = []
+  remainder = 0
 
   if dice.kind_of? Array
     if dice.empty? or dice.length == 0
       return sum 
     end 
 
-		dice.sort
-		h = Hash.new(0)
-		dice.each{ |e| h[e] += 1 }
-
-		for x in h.keys
-			if h[x] == 3
-        puts "triple digits found!"
-        triplets.push(x)
+		# dice.sort
+		# h = Hash.new(0)
+		# dice.each{ |e| h[e] += 1 }
+    h = dice.tally
+    
+		for x in h.keys 
+			if h[x] >= 3
+        remainder = dice.length - 3
 				if x == 1
 					special_sum = special_sum + 1000
-				else 
+          sum = sum + (100*remainder)
+          h.keys.shift[x]
+        elsif x == 5 
+          special_sum = special_sum + 500 
+          sum = sum + (50*remainder)
+          h.keys.shift[x]
+        else 
 					special_sum = special_sum + (100*x)
+          h.keys.shift[x]
 				end
-			end
-    end
-    for x in (dice - triplets)
-			if x == 1
-				sum = sum + 100
-      elsif x == 5
-				sum = sum + 50
-			end
+      else
+			  if x == 1
+				  sum = sum + (100*h[x])
+        elsif x == 5
+			  	sum = sum + (50*h[x])
+			  end
+      end
 		end
  	end 
+   puts h
   return sum + special_sum
 end
 
