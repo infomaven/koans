@@ -40,31 +40,30 @@ def score(dice)
       return sum 
     end 
 
-		# dice.sort
-		# h = Hash.new(0)
-		# dice.each{ |e| h[e] += 1 }
-    h = dice.tally
+    h = dice.tally  # create frequency count for each unique element from list
     
 		for x in h.keys 
 			if h[x] >= 3
-        remainder = dice.length - 3
+        remainder = h[x] - 3
 				if x == 1
 					special_sum = special_sum + 1000
           sum = sum + (100*remainder)
-          h.keys.shift[x]
+          #h.keys.shift[x]
         elsif x == 5 
           special_sum = special_sum + 500 
           sum = sum + (50*remainder)
-          h.keys.shift[x]
+          #h.keys.shift[x]
         else 
 					special_sum = special_sum + (100*x)
-          h.keys.shift[x]
+          #h.keys.shift[x]
 				end
       else
 			  if x == 1
 				  sum = sum + (100*h[x])
         elsif x == 5
 			  	sum = sum + (50*h[x])
+        else
+          sum = sum + 0
 			  end
       end
 		end
