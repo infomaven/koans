@@ -68,7 +68,7 @@ def score(dice)
       end
 		end
  	end 
-   puts h
+   #puts h    ## for debugging
   return sum + special_sum
 end
 
