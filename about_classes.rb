@@ -31,11 +31,11 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     fido.set_name("Fido")
 
-    assert_raise(___) do
+    assert_raise(___(NoMethodError)) do
       fido.name
     end
 
-    assert_raise(___) do
+    assert_raise(___(SyntaxError)) do
       eval "fido.@name"
       # NOTE: Using eval because the above line is a syntax error.
     end
@@ -45,15 +45,15 @@ class AboutClasses < Neo::Koan
     fido = Dog2.new
     fido.set_name("Fido")
 
-    assert_equal __, fido.instance_variable_get("@name")
+    assert_equal "Fido", fido.instance_variable_get("@name")
   end
 
   def test_you_can_rip_the_value_out_using_instance_eval
     fido = Dog2.new
     fido.set_name("Fido")
 
-    assert_equal __, fido.instance_eval("@name")  # string version
-    assert_equal __, fido.instance_eval { @name } # block version
+    assert_equal "Fido", fido.instance_eval("@name")  # string version
+    assert_equal "Fido", fido.instance_eval { @name } # block version
   end
 
   # ------------------------------------------------------------------
@@ -71,7 +71,7 @@ class AboutClasses < Neo::Koan
     fido = Dog3.new
     fido.set_name("Fido")
 
-    assert_equal __, fido.name
+    assert_equal "Fido", fido.name
   end
 
   # ------------------------------------------------------------------
